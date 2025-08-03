@@ -2,87 +2,71 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login Disdikbud</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login Akses</title>
+  <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background: #f0f2f5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    .login-box {
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-      background: #fff;
-      width: 100%;
-      max-width: 400px;
-    }
-  </style>
 </head>
-<body>
-  <div class="login-box">
-    <h4 class="text-center mb-4">Login Disdikbud</h4>
-    <div class="mb-3">
-      <label for="kode_akses" class="form-label">Kode Akses</label>
-      <input type="text" class="form-control" id="kode_akses" required />
+<body class="bg-light d-flex align-items-center justify-content-center" style="height: 100vh;">
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card shadow">
+          <div class="card-body">
+            <h4 class="card-title text-center mb-4">Login</h4>
+            <form id="loginForm">
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" id="username" class="form-control" required />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" class="form-control" required />
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Login</button>
+              <div class="text-danger mt-3 text-center" id="errorMsg"></div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="mb-3">
-      <label for="nama_sekolah" class="form-label">Nama Sekolah</label>
-      <input type="text" class="form-control" id="nama_sekolah" required />
-    </div>
-    <div class="mb-3">
-      <label for="kecamatan" class="form-label">Kecamatan</label>
-      <input type="text" class="form-control" id="kecamatan" required />
-    </div>
-    <div class="mb-3">
-      <label for="operator" class="form-label">Nama Operator</label>
-      <input type="text" class="form-control" id="operator" required />
-    </div>
-    <div class="d-grid">
-      <button class="btn btn-primary" onclick="submitLogin()">Login</button>
-    </div>
-    <div id="status" class="mt-3 text-center text-danger"></div>
   </div>
 
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
   <script>
-    async function submitLogin() {
-      const kode_akses = document.getElementById("kode_akses").value.trim();
-      const nama_sekolah = document.getElementById("nama_sekolah").value.trim();
-      const kecamatan = document.getElementById("kecamatan").value.trim();
-      const operator = document.getElementById("operator").value.trim();
-
-      if (!kode_akses || !nama_sekolah || !kecamatan || !operator) {
-        document.getElementById("status").textContent = "Semua isian wajib diisi.";
-        return;
-      }
-
-      const payload = { kode_akses, nama_sekolah, kecamatan, operator };
-
-      try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbzMFh69CH53Ue53-31Ojse7kdi8dYCxejIe3FaAs1l-K7OLj3s6Bklaj5f-VYisdXwg/exec", {
-          method: "POST",
-          body: JSON.stringify(payload),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        });
-
-        const result = await res.json();
-
-        if (result.success) {
-          localStorage.setItem("url_reklas", result.url);
-          window.location.href = "/disdikbud_perencanaan/dashboard/";
-        } else {
-          document.getElementById("status").textContent = result.error || "Login gagal.";
-        }
-      } catch (err) {
-        document.getElementById("status").textContent = "Terjadi kesalahan koneksi.";
-      }
+    async function sha256(text) {
+      const msgBuffer = new TextEncoder().encode(text);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     }
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const hashedPassword = await sha256(password);
+
+      const url = `https://script.google.com/macros/s/AKfycbzMFh69CH53Ue53-31Ojse7kdi8dYCxejIe3FaAs1l-K7OLj3s6Bklaj5f-VYisdXwg/exec?username=${encodeURIComponent(username)}&password=${hashedPassword}`;
+
+      fetch(url)
+        .then(res => res.json())
+        .then(response => {
+          if (response.status === 'success') {
+            window.location.href = "/disdikbud_perencanaan/dashboard/";
+          } else {
+            document.getElementById('errorMsg').textContent = 'Username atau password salah.';
+          }
+        })
+        .catch(err => {
+          document.getElementById('errorMsg').textContent = 'Terjadi kesalahan: ' + err.message;
+        });
+    });
   </script>
+
 </body>
 </html>
