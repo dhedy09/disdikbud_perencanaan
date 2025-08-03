@@ -4,6 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>dashboard</title>
+
+    <script>
+  // Cek apakah user sudah login
+  if (localStorage.getItem("isLoggedIn") !== "true") {
+        window.location.href = "/disdikbud_perencanaan/login/index.html";
+    }
+    </script>
+
   </head>
   <body>
     <h1>Hello, world! ini dashboardku</h1>
