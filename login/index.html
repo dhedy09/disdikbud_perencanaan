@@ -99,7 +99,7 @@
         .then(res => res.json())
         .then(response => {
           if (response.status === 'success') {
-            window.location.href = './dashboard/index.html'; // ganti sesuai halaman utama kamu
+            window.location.href = "/disdikbud_perencanaan/dashboard/"; // ganti sesuai halaman utama kamu
           } else {
             document.getElementById('errorMsg').textContent = 'Username atau password salah.';
           }
