@@ -1,113 +1,88 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login Akses</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Disdikbud</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
+      background: #f0f2f5;
       display: flex;
-      height: 100vh;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
-    .login-container {
-      background-color: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      width: 300px;
-    }
-    .login-container h2 {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-    .input-group {
-      margin-bottom: 15px;
-    }
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: bold;
-    }
-    input[type="text"],
-    input[type="password"] {
+    .login-box {
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      background: #fff;
       width: 100%;
-      padding: 10px;
-      box-sizing: border-box;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    .error-msg {
-      color: red;
-      text-align: center;
-      margin-top: 10px;
+      max-width: 400px;
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <h2>Login</h2>
-    <form id="loginForm">
-      <div class="input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" required />
-      </div>
-      <div class="input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" required />
-      </div>
-      <button type="submit">Login</button>
-      <div class="error-msg" id="errorMsg"></div>
-    </form>
+  <div class="login-box">
+    <h4 class="text-center mb-4">Login Disdikbud</h4>
+    <div class="mb-3">
+      <label for="kode_akses" class="form-label">Kode Akses</label>
+      <input type="text" class="form-control" id="kode_akses" required />
+    </div>
+    <div class="mb-3">
+      <label for="nama_sekolah" class="form-label">Nama Sekolah</label>
+      <input type="text" class="form-control" id="nama_sekolah" required />
+    </div>
+    <div class="mb-3">
+      <label for="kecamatan" class="form-label">Kecamatan</label>
+      <input type="text" class="form-control" id="kecamatan" required />
+    </div>
+    <div class="mb-3">
+      <label for="operator" class="form-label">Nama Operator</label>
+      <input type="text" class="form-control" id="operator" required />
+    </div>
+    <div class="d-grid">
+      <button class="btn btn-primary" onclick="submitLogin()">Login</button>
+    </div>
+    <div id="status" class="mt-3 text-center text-danger"></div>
   </div>
 
   <script>
-    async function sha256(text) {
-      const msgBuffer = new TextEncoder().encode(text);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    }
+    async function submitLogin() {
+      const kode_akses = document.getElementById("kode_akses").value.trim();
+      const nama_sekolah = document.getElementById("nama_sekolah").value.trim();
+      const kecamatan = document.getElementById("kecamatan").value.trim();
+      const operator = document.getElementById("operator").value.trim();
 
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
+      if (!kode_akses || !nama_sekolah || !kecamatan || !operator) {
+        document.getElementById("status").textContent = "Semua isian wajib diisi.";
+        return;
+      }
 
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value;
+      const payload = { kode_akses, nama_sekolah, kecamatan, operator };
 
-      const hashedPassword = await sha256(password);
-
-      const url = `https://script.google.com/macros/s/AKfycbzMFh69CH53Ue53-31Ojse7kdi8dYCxejIe3FaAs1l-K7OLj3s6Bklaj5f-VYisdXwg/exec?username=${encodeURIComponent(username)}&password=${hashedPassword}`;
-
-      fetch(url)
-        .then(res => res.json())
-        .then(response => {
-          if (response.status === 'success') {
-            window.location.href = "/disdikbud_perencanaan/dashboard/"; // ganti sesuai halaman utama kamu
-          } else {
-            document.getElementById('errorMsg').textContent = 'Username atau password salah.';
+      try {
+        const res = await fetch("https://script.google.com/macros/s/AKfycbzMFh69CH53Ue53-31Ojse7kdi8dYCxejIe3FaAs1l-K7OLj3s6Bklaj5f-VYisdXwg/exec", {
+          method: "POST",
+          body: JSON.stringify(payload),
+          headers: {
+            "Content-Type": "application/json"
           }
-        })
-        .catch(err => {
-          document.getElementById('errorMsg').textContent = 'Terjadi kesalahan: ' + err.message;
         });
-    });
+
+        const result = await res.json();
+
+        if (result.success) {
+          localStorage.setItem("url_reklas", result.url);
+          window.location.href = "/disdikbud_perencanaan/dashboard/";
+        } else {
+          document.getElementById("status").textContent = result.error || "Login gagal.";
+        }
+      } catch (err) {
+        document.getElementById("status").textContent = "Terjadi kesalahan koneksi.";
+      }
+    }
   </script>
 </body>
 </html>
