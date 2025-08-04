@@ -1,43 +1,36 @@
-/* Struktur submenu ke bawah */
+/* Submenu dropdown styling */
 .dropdown-submenu {
   position: relative;
 }
 
 .dropdown-submenu > .dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 0.1rem;
-  z-index: 1000;
-}
-
-/* Submenu arah ke kanan (dropend) */
-.dropdown-submenu.dropend > .dropdown-menu {
   top: 0;
   left: 100%;
+  margin-top: -0.125rem;
   margin-left: 0.1rem;
+  position: absolute;
+  display: none;
 }
 
-/* Ketika aktif (toggle class .show via JS) */
-.dropdown-submenu.show > .dropdown-menu {
+.dropdown-submenu:hover > .dropdown-menu {
   display: block;
 }
 
-/* Icon panah ▼ */
+/* Panah kanan */
 .dropdown-submenu > a::after {
-  content: "▼";
+  content: "▶";
   float: right;
   margin-left: 10px;
   font-size: 0.8rem;
 }
 
-/* Minimal lebar dropdown */
+/* Tambahan visual */
 .dropdown-menu {
   min-width: 200px;
+  z-index: 1050;
 }
 
-/* Warna dan styling navbar */
+/* Navbar styling */
 .navbar {
   background-color: #0a0a0a !important;
 }
