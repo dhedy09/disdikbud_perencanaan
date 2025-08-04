@@ -1,4 +1,6 @@
-/* Submenu dropdown styling */
+/* =============================== */
+/* Submenu dropdown styling       */
+/* =============================== */
 .dropdown-submenu {
   position: relative;
 }
@@ -16,14 +18,22 @@
   display: block;
 }
 
+/* Aktifkan dropdown-menu saat JS toggle class .show */
+.dropdown-submenu .dropdown-menu.show {
+  display: block;
+}
 
-/* Tambahan visual */
+/* =============================== */
+/* Dropdown Menu Visuals          */
+/* =============================== */
 .dropdown-menu {
   min-width: 200px;
   z-index: 1050;
 }
 
-/* Navbar styling */
+/* =============================== */
+/* Navbar Styling                 */
+/* =============================== */
 .navbar {
   background-color: #0a0a0a !important;
 }
@@ -33,7 +43,9 @@
   color: white !important;
 }
 
-/* Tombol styling */
+/* =============================== */
+/* Button Styling                 */
+/* =============================== */
 .btn-outline-success {
   color: white;
   border-color: #ffffff;
@@ -58,35 +70,15 @@
   width: 100px;
 }
 
-/* Aktifkan dropdown-menu saat JS toggle class .show */
-.dropdown-submenu .dropdown-menu.show {
-  display: block;
-}
-
-
-/* Default: arah kanan (untuk desktop) */
-.dropdown-submenu > .dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-left: 0.1rem;
-}
-
-/* Di layar kecil: dropdown ke bawah */
-@media (max-width: 991.98px) {
-  .dropdown-submenu > .dropdown-menu {
-    left: 0;
-    top: 100%;
-    margin-left: 0;
-  }
-}
-
-/* Ikon panah di ujung kanan */
+/* =============================== */
+/* Ikon Panah Submenu             */
+/* =============================== */
 .dropdown-submenu > a {
   position: relative;
 }
 
 .dropdown-submenu > a::after {
-  /* content: "▸"; */
+  content: "▸";
   position: absolute;
   right: 10px;
   top: 50%;
@@ -95,7 +87,25 @@
   color: black;
 }
 
+/* =============================== */
+/* Responsive Layout              */
+/* =============================== */
 @media (max-width: 991.98px) {
+  /* Submenu dropdown ke bawah */
+  .dropdown-submenu > .dropdown-menu {
+    left: 0;
+    top: 100%;
+    margin-left: 0;
+  }
+
+  /* Navbar collapse jadi kolom */
+  .navbar .collapse {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* Search & login vertikal */
   .navbar .d-flex {
     flex-direction: column;
     align-items: stretch;
@@ -107,5 +117,3 @@
     margin-left: 0 !important;
   }
 }
-
-
