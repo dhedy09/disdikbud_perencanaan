@@ -16,6 +16,7 @@
   display: block;
 }
 
+
 /* Tambahan visual */
 .dropdown-menu {
   min-width: 200px;
@@ -62,11 +63,21 @@
   display: block;
 }
 
+
 /* Default: arah kanan (untuk desktop) */
 .dropdown-submenu > .dropdown-menu {
   top: 0;
   left: 100%;
   margin-left: 0.1rem;
+}
+
+/* Di layar kecil: dropdown ke bawah */
+@media (max-width: 991.98px) {
+  .dropdown-submenu > .dropdown-menu {
+    left: 0;
+    top: 100%;
+    margin-left: 0;
+  }
 }
 
 /* Ikon panah di ujung kanan */
@@ -75,7 +86,7 @@
 }
 
 .dropdown-submenu > a::after {
-  content: "▸";
+  /* content: "▸"; */
   position: absolute;
   right: 10px;
   top: 50%;
@@ -84,19 +95,20 @@
   color: black;
 }
 
-/* Di layar kecil (mobile): dropdown ke bawah dan layout tombol login rapi */
 @media (max-width: 991.98px) {
-  .dropdown-submenu > .dropdown-menu {
-    left: 0;
-    top: 100%;
-    margin-left: 0;
+  .navbar .d-flex {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
   }
 
-  /* Hilangkan panah submenu di mobile */
-  .dropdown-submenu > a::after {
-    content: none;
+  .btn-login {
+    width: 100%;
+    margin-left: 0 !important;
   }
+}
 
+@media (max-width: 991.98px) {
   .navbar .collapse {
     display: flex;
     flex-direction: column;
@@ -111,30 +123,10 @@
   .btn-login {
     width: 100%;
     margin-left: 0 !important;
-    margin-top: 0.5rem;
   }
 }
 
-@media (max-width: 991.98px) {
-  /* ... (kode sebelumnya tetap) */
-
-  /* Form pencarian rapih di mobile */
-  .navbar .d-flex {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .navbar .d-flex input[type="search"],
-  .navbar .d-flex button[type="submit"] {
-    width: 100%;
-  }
-
-  .navbar .d-flex button[type="submit"] {
-    margin-left: 0 !important;
-  }
-}
-
-
+/* Atur agar tombol login responsif */
 @media (max-width: 991.98px) {
   .navbar-form-wrapper {
     width: 100%;
@@ -142,6 +134,9 @@
 
   .navbar-form-wrapper form {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   .navbar-form-wrapper input[type="search"],
@@ -152,10 +147,6 @@
 
   .navbar-form-wrapper .btn-login {
     margin-left: 0 !important;
+    margin-top: 0.25rem;
   }
-}
-
-/* Nonaktifkan panah tambahan dari pseudo-element */
-.dropdown-submenu > a.dropdown-toggle::after {
-  display: none !important;
 }
