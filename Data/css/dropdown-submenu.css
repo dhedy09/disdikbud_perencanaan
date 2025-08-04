@@ -133,3 +133,24 @@
     margin-left: 0 !important;
   }
 }
+
+
+@media (max-width: 991.98px) {
+  .navbar-form-wrapper {
+    width: 100%;
+  }
+
+  .navbar-form-wrapper form {
+    width: 100%;
+  }
+
+  .navbar-form-wrapper input[type="search"],
+  .navbar-form-wrapper button[type="submit"],
+  .navbar-form-wrapper .btn-login {
+    width: 100%;
+  }
+
+  .navbar-form-wrapper .btn-login {
+    margin-left: 0 !important;
+  }
+}
