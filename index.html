@@ -75,5 +75,33 @@
     <!-- AKHIR NAVBAR -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+  
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.dropdown-submenu > a').forEach(function (el) {
+          el.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            let submenu = el.nextElementSibling;
+            if (submenu && submenu.classList.contains('dropdown-menu')) {
+              submenu.classList.toggle('show');
+            }
+
+            document.querySelectorAll('.dropdown-submenu .dropdown-menu').forEach(function (menu) {
+              if (menu !== submenu) {
+                menu.classList.remove('show');
+              }
+            });
+          });
+        });
+
+        document.addEventListener('click', function (e) {
+          document.querySelectorAll('.dropdown-submenu .dropdown-menu').forEach(function (menu) {
+            menu.classList.remove('show');
+          });
+        });
+      });
+    </script>
+</body>
 </html>
