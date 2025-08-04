@@ -74,6 +74,35 @@
     </nav>
     <!-- AKHIR NAVBAR -->
 
+    <script>
+      // Toggle submenu saat diklik
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.dropdown-submenu > a').forEach(function (el) {
+          el.addEventListener('click', function (e) {
+            e.preventDefault(); // Biar tidak langsung redirect
+            e.stopPropagation(); // Biar tidak menutup dropdown utama
+
+            // Tutup semua submenu lain
+            document.querySelectorAll('.dropdown-submenu').forEach(function (submenu) {
+              if (submenu !== el.parentElement) {
+                submenu.classList.remove('show');
+              }
+            });
+
+            // Toggle submenu yang diklik
+            el.parentElement.classList.toggle('show');
+          });
+        });
+
+        // Tutup semua dropdown saat klik di luar
+        document.addEventListener('click', function () {
+          document.querySelectorAll('.dropdown-submenu').forEach(function (submenu) {
+            submenu.classList.remove('show');
+          });
+        });
+      });
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

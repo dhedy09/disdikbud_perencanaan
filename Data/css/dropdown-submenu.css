@@ -12,9 +12,21 @@
   margin-top: -0.3rem;
 }
 
-.dropdown-submenu:hover > .dropdown-menu {
+/* Jangan tampilkan submenu otomatis saat hover */
+.dropdown-submenu > .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 0.1rem;
+  margin-top: 0;
+}
+
+/* Tampilkan submenu secara manual lewat JS (toggle class `show`) */
+.dropdown-submenu.show > .dropdown-menu {
   display: block;
 }
+
 
 .dropdown-submenu > a::after {
   content: "▶";
