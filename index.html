@@ -27,16 +27,16 @@
             <!-- DROPDOWN UTAMA DATA -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Data</a>
-              <ul class="dropdown-menu custom-dropdown">
-                <li class="dropdown-submenu dropend">
+              <ul class="dropdown-menu custom-dropdown" data-bs-auto-close="outside">
+                <li class="dropdown-submenu dropend position-relative">
                   <a class="dropdown-item dropdown-toggle" href="#">Tahun 2023</a>
                   <ul class="dropdown-menu">
-                    <li class="dropdown-submenu dropend">
+                    <li class="dropdown-submenu dropend position-relative">
                       <a class="dropdown-item dropdown-toggle" href="#">DPA</a>
                       <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="Data/Tahun 2023/DPA/Penetapan APBD/">Penetapan APBD</a></li>
-                        <!-- <li><a class="dropdown-item" href="Data/Tahun 2023/DPA/Pergeseran/">Pergeseran</a></li>
-                        <li><a class="dropdown-item" href="Data/Tahun 2023/DPA/Perubahan/">Perubahan</a></li> -->
+                        <li><a class="dropdown-item" href="Data/Tahun 2023/DPA/Pergeseran/">Pergeseran</a></li>
+                        <li><a class="dropdown-item" href="Data/Tahun 2023/DPA/Perubahan/">Perubahan</a></li>
                       </ul>
                     </li>
                     <li><a class="dropdown-item" href="Data/Tahun 2023/Rekap/index.html">Rekap</a></li>
@@ -79,8 +79,8 @@
       document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.dropdown-submenu > a').forEach(function (el) {
           el.addEventListener('click', function (e) {
-            e.preventDefault(); // Biar tidak langsung redirect
-            e.stopPropagation(); // Biar tidak menutup dropdown utama
+            e.preventDefault();
+            e.stopImmediatePropagation(); // lebih kuat dari stopPropagation
 
             // Tutup semua submenu lain
             document.querySelectorAll('.dropdown-submenu').forEach(function (submenu) {

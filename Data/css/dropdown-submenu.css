@@ -1,42 +1,54 @@
-  /* Buat struktur submenu ke bawah */
-  .dropdown-submenu {
-    position: relative;
-  }
+/* Struktur submenu ke bawah */
+.dropdown-submenu {
+  position: relative;
+}
 
-  .dropdown-submenu > .dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%; /* ke bawah */
-    left: 0;
-    margin-top: 0.1rem;
-    z-index: 1000;
-  }
+.dropdown-submenu > .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.1rem;
+  z-index: 1000;
+}
 
-  /* Ketika aktif (dengan JS toggle class .show) */
-  .dropdown-submenu.show > .dropdown-menu {
-    display: block;
-  }
+/* Submenu arah ke kanan (dropend) */
+.dropdown-submenu.dropend > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-left: 0.1rem;
+}
 
-  /* Icon panah ke bawah */
-  .dropdown-submenu > a::after {
-    content: "▼";
-    float: right;
-    margin-left: 10px;
-    font-size: 0.8rem;
-  }
+/* Ketika aktif (toggle class .show via JS) */
+.dropdown-submenu.show > .dropdown-menu {
+  display: block;
+}
 
+/* Icon panah ▼ */
+.dropdown-submenu > a::after {
+  content: "▼";
+  float: right;
+  margin-left: 10px;
+  font-size: 0.8rem;
+}
 
+/* Minimal lebar dropdown */
+.dropdown-menu {
+  min-width: 200px;
+}
 
-  .navbar {
-    background-color: #0a0a0a !important;
-  }
+/* Warna dan styling navbar */
+.navbar {
+  background-color: #0a0a0a !important;
+}
 
-  .navbar .nav-link,
-  .navbar .navbar-brand {
-    color: white !important;
-  }
+.navbar .nav-link,
+.navbar .navbar-brand {
+  color: white !important;
+}
 
-  .btn-outline-success {
+/* Tombol styling */
+.btn-outline-success {
   color: white;
   border-color: #ffffff;
 }
@@ -59,4 +71,3 @@
 .btn-login {
   width: 100px;
 }
-
