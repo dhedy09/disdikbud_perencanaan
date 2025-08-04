@@ -95,3 +95,17 @@
   color: black;
 }
 
+@media (max-width: 991.98px) {
+  .navbar .d-flex {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .btn-login {
+    width: 100%;
+    margin-left: 0 !important;
+  }
+}
+
+
