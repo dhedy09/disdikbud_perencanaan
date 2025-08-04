@@ -154,3 +154,8 @@
     margin-left: 0 !important;
   }
 }
+
+/* Nonaktifkan panah tambahan dari pseudo-element */
+.dropdown-submenu > a.dropdown-toggle::after {
+  display: none !important;
+}
