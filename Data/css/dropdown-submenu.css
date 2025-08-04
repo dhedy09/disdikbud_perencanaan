@@ -75,7 +75,7 @@
 }
 
 .dropdown-submenu > a::after {
-  content: "▸";
+  /* content: "▸"; */
   position: absolute;
   right: 10px;
   top: 50%;
@@ -83,6 +83,7 @@
   font-size: 0.9rem;
   color: black;
 }
+
 
 /* Di layar kecil (mobile): dropdown ke bawah dan tombol login rapi */
 @media (max-width: 991.98px) {
@@ -126,4 +127,8 @@
     align-items: center;
     gap: 0.75rem;
   }
+}
+
+.navbar .dropdown-toggle::after {
+  margin-left: 0.5rem;
 }
